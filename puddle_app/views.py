@@ -1,9 +1,17 @@
 from django.shortcuts import render
+from item.models import Category, Item
 
 # Create your views here.
 """Homepage view"""
 def index(request):
-    return render(request, 'puddle_app/index.html')
+    items = Item.objects.filter(is_sold=False)[0:6]
+    categories = Category.objects.all()
+
+    return render(request, 'puddle_app/index.html', {
+        'categories': categories,
+        'items': items,
+    })
+
 
 """Contact view"""
 def contact(request):
